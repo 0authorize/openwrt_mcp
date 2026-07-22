@@ -323,7 +323,7 @@ done;
 async function test_ssh_connect(){
     try {
         console.log("正在尝试连接并执行命令..."); // 👈 加一行这个看函数有没有被调用
-        const result = await ssh_and_run_command(network_status_command);
+        const result = await ssh_and_run_command(openclash_status_command);
         console.log("执行成功，输出如下：");
         console.log(result);
     } catch (err) {
