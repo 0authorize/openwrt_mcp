@@ -1,0 +1,2 @@
+# openwrt_mcp
+用于给Agent操作OpenWrt路由器的MCP
