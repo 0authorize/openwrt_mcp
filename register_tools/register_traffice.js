@@ -1,4 +1,4 @@
-import { getTrafficeStastice } from '../services/TrafficeStatistics_Service'
+import { getTrafficeStastice } from '../services/TrafficeStatistics_Service.js'
 
 export function register_TrafficeStatice_Tools(server){
 

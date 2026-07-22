@@ -1,10 +1,10 @@
+import { z } from 'zod'
 import { switchOpenclashMode } from '../services/SwitchOpenClashModel_Service.js'
 
 export function register_SwitchOpenClashModel_Tools(server){
 
     server.tool(
         "switch_openclash_proxy_mode",
-
     `
     切换 OpenClash 代理模式。
 
@@ -26,15 +26,10 @@ export function register_SwitchOpenClashModel_Tools(server){
     该操作会影响整个局域网设备的代理行为。
     `,
         {
-            mode:{
-                type:"string",
-               description:"切换OpenClash代理模式，可选 rule/global/direct"
-            }
+            mode: z.enum(["rule", "global", "direct"]).describe("切换OpenClash代理模式，可选 rule/global/direct")
         },
         async({mode})=>{
-
             const result = await switchOpenclashMode(mode);
-
             return {
                 content:[
                     {
@@ -45,5 +40,4 @@ export function register_SwitchOpenClashModel_Tools(server){
             }
         }
     )
-
 }
