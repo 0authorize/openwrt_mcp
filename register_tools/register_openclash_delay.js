@@ -1,4 +1,4 @@
-import { getOpenClashProxyGroupAndDelay } from '../services/services/OpenClashSpeedTest_Servive.js'
+import { getOpenClashProxyGroupAndDelay } from '../services/OpenClashSpeedTest_Servive.js'
 
 export function register_OpenClashProxyGroupAndDelay_Tools(server){
 

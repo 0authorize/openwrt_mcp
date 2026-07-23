@@ -3,7 +3,7 @@ import { ssh_and_run_command } from "../tools/ssh.js";
 
 const command = `
 curl -s \
--H "Authorization: Bearer sC5VcFUh" \
+-H "Authorization: Bearer ***" \
 http://127.0.0.1:9090/proxies
 `;
 
@@ -34,9 +34,7 @@ export async function getOpenClashProxyGroup() {
                 groups.push({
 
                     name:name,
-
                     current:proxy.now,
-
                     nodes:proxy.all
 
                 });
@@ -55,4 +53,4 @@ export async function getOpenClashProxyGroup() {
 
     }
 
-}这个能不能直接改
+}
