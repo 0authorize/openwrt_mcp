@@ -1,6 +1,7 @@
 import { ssh_and_run_command } from "../tools/ssh.js";
 
 const openclash_status_command = `
+set +e;
 echo "===== OpenClash 服务状态 =====";
 
 if /etc/init.d/openclash status >/dev/null 2>&1; then
