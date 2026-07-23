@@ -9,6 +9,7 @@ import{ register_TrafficeStatice_Tools } from "./register_tools/register_traffic
 import{ register_SwitchOpenClashModel_Tools } from "./register_tools/register_openclash_switchmodel.js"
 import{ register_OpenClashStatus_Tools } from "./register_tools/register_openclash_status.js"
 import{ register_OpenClashProxyGroup_Tools } from "./register_tools/register_openclash_proxygroup.js"
+import{ register_OperationOpenclashStatus_Tools } from "./register_tools/register_openclash_operation.js"
 const server = new McpServer(
     {
         name:"openwrt-control",
@@ -27,6 +28,7 @@ register_TrafficeStatice_Tools(server);
 register_OpenClashStatus_Tools(server);
 register_SwitchOpenClashModel_Tools(server);
 register_OpenClashProxyGroup_Tools(server);
+register_OperationOpenclashStatus_Tools(server);
 
 const transport = new StdioServerTransport();
 

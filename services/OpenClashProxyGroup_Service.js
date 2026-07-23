@@ -1,21 +1,51 @@
 import { ssh_and_run_command } from "../tools/ssh.js";
 
 
-const command = `
+const token = "sC5VcFUh";
+
+
+async function getProxyDelay(node){
+
+    const command = `
 curl -s \
--H "Authorization: Bearer sC5VcFUh" \
-http://127.0.0.1:9090/proxies
+-H "Authorization: Bearer ${token}" \
+"http://127.0.0.1:9090/proxies/${encodeURIComponent(node)}/delay?timeout=5000&url=http://www.gstatic.com/generate_204"
 `;
-
-
-export async function getOpenClashProxyGroup() {
 
     try {
 
         const result = await ssh_and_run_command(command);
 
+        const data = JSON.parse(result);
 
-        // SSH返回的是字符串，需要解析
+        return data.delay ?? -1;
+
+    } catch(error){
+
+        return -1;
+
+    }
+
+}
+
+
+
+export async function getOpenClashProxyGroup() {
+
+
+    const command = `
+curl -s \
+-H "Authorization: Bearer ${token}" \
+http://127.0.0.1:9090/proxies
+`;
+
+
+    try {
+
+
+        const result = await ssh_and_run_command(command);
+
+
         const clashData = JSON.parse(result);
 
 
@@ -28,8 +58,35 @@ export async function getOpenClashProxyGroup() {
         for (const [name, proxy] of Object.entries(proxies)) {
 
 
-            // 只取Selector类型的代理组
+            // 只获取策略组
             if(proxy.type === "Selector"){
+
+
+                const nodeList = proxy.all.filter(node =>
+                    node !== "DIRECT" &&
+                    node !== "REJECT"
+                );
+
+
+                // 并发测速
+                const nodes = await Promise.all(
+
+                    nodeList.map(async(node)=>{
+
+                        const delay = await getProxyDelay(node);
+
+                        return {
+
+                            name:node,
+
+                            delay
+
+                        };
+
+                    })
+
+                );
+
 
                 groups.push({
 
@@ -37,9 +94,10 @@ export async function getOpenClashProxyGroup() {
 
                     current:proxy.now,
 
-                    nodes:proxy.all
+                    nodes:nodes
 
                 });
+
 
             }
 
