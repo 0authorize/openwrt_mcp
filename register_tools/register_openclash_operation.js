@@ -1,4 +1,5 @@
 import { OperationOpenclashStatus } from '../services/OperationOpenClash_Service.js'
+import { z } from 'zod'
 export function register_OperationOpenclashStatus_Tools(server){
 server.tool(
     "operation_openclash_status",
